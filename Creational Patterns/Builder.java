@@ -195,6 +195,48 @@ public class BuilDer {
 
 
         
+    /**
+     * Car manual is another product. Note that it does not have the same ancestor
+     * as a Car. They are not related.
+     */
+    public class Manual {
+        private final CarType carType;
+        private final int seats;
+        private final Engine engine;
+        private final Transmission transmission;
+        private final TripComputer tripComputer;
+        private final GPSNavigator gpsNavigator;
+
+        public Manual(CarType carType, int seats, Engine engine, Transmission transmission,
+                    TripComputer tripComputer, GPSNavigator gpsNavigator) {
+            this.carType = carType;
+            this.seats = seats;
+            this.engine = engine;
+            this.transmission = transmission;
+            this.tripComputer = tripComputer;
+            this.gpsNavigator = gpsNavigator;
+        }
+
+        public String print() {
+            String info = "";
+            info += "Type of car: " + carType + "\n";
+            info += "Count of seats: " + seats + "\n";
+            info += "Engine: volume - " + engine.getVolume() + "; mileage - " + engine.getMileage() + "\n";
+            info += "Transmission: " + transmission + "\n";
+            if (this.tripComputer != null) {
+                info += "Trip Computer: Functional" + "\n";
+            } else {
+                info += "Trip Computer: N/A" + "\n";
+            }
+            if (this.gpsNavigator != null) {
+                info += "GPS Navigator: Functional" + "\n";
+            } else {
+                info += "GPS Navigator: N/A" + "\n";
+            }
+            return info;
+        }
+    }
+        
     public enum CarType {
         CITY_CAR, SPORTS_CAR, SUV
     }
@@ -332,12 +374,14 @@ public class BuilDer {
     public class Demo {
 
         public static void main(String[] args) {
-            Director director = new Director();
+        
+            BuilDer parentClass = new BuilDer();
+            Director director = parentClass.new Director();
 
             // Director gets the concrete builder object from the client
             // (application code). That's because application knows better which
             // builder to use to get a specific product.
-            CarBuilder builder = new CarBuilder();
+            CarBuilder builder = parentClass.new CarBuilder();
             director.constructSportsCar(builder);
 
             // The final product is often retrieved from a builder object, since
@@ -347,7 +391,7 @@ public class BuilDer {
             System.out.println("Car built:\n" + car.getCarType());
 
 
-            CarManualBuilder manualBuilder = new CarManualBuilder();
+            CarManualBuilder manualBuilder = parentClass.new CarManualBuilder();
 
             // Director may know several building recipes.
             director.constructSportsCar(manualBuilder);

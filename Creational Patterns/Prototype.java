@@ -50,9 +50,6 @@ public class Prototype {
         }
     }
 
-
-
-
         
     public class Circle extends Shape {
         public int radius;
@@ -136,10 +133,12 @@ public class Prototype {
         }
 
         private static void cloneAndCompare(List<Shape> shapes, List<Shape> shapesCopy) {
+            // cloning step
             for (Shape shape : shapes) {
                 shapesCopy.add(shape.clone());
             }
 
+            // comparing step
             for (int i = 0; i < shapes.size(); i++) {
                 if (shapes.get(i) != shapesCopy.get(i)) {
                     System.out.println(i + ": Shapes are different objects (yay!)");
