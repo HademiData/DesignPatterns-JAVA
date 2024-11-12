@@ -114,9 +114,8 @@ notifies its subscribers. EmailNotificationListener
             System.out.println("Save to log " + log + ": Someone has performed " + eventType + " operation with the following file: " + file.getName());
         }
     }
-
-
         
+    
     public class Demo {
         public static void main(String[] args) {
 
