@@ -88,12 +88,12 @@ class Strategy {
             }
         }
 
+        // helper method
         private boolean verify() {
             setSignedIn(email.equals(DATA_BASE.get(password)));
             return signedIn;
         }
-
-            /**
+        /**
          * Save customer data for future shopping attempts.
          */
         @Override
@@ -105,7 +105,8 @@ class Strategy {
                 return false;
             }
         }
-
+        
+        // helper method
         private void setSignedIn(boolean signedIn) {
             this.signedIn = signedIn;
         }
@@ -198,6 +199,7 @@ class Strategy {
             // Here we could collect and store payment data from the strategy.
         }
 
+        // setter and getter methods
         public void setTotalCost(int cost) {
             this.totalCost += cost;
         }
@@ -214,15 +216,19 @@ class Strategy {
             isClosed = true;
         }
     }
-
         
     /**
      * World first console e-commerce application.
      */
     public class Demo {
+
         private static Map<Integer, Integer> priceOnProducts = new HashMap<>();
         private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        private static Order order = new Order();
+
+        // I added this because of the parent class
+        static Strategy parentStrategy1  = new Strategy();
+        
+        private static Order order = parentStrategy1.new Order();
         private static PayStrategy strategy;
 
         static {
@@ -260,10 +266,12 @@ class Strategy {
 
                     // Client creates different strategies based on input from user,
                     // application configuration, etc.
+
+                    Strategy parentStrategy = new Strategy();
                     if (paymentMethod.equals("1")) {
-                        strategy = new PayByPayPal();
+                        strategy = parentStrategy.new PayByPayPal();
                     } else {
-                        strategy = new PayByCreditCard();
+                        strategy = parentStrategy.new PayByCreditCard();
                     }
                 }
                 // Order object delegates gathering payment data to strategy object,
